@@ -3,1684 +3,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дендролог Университета</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#000">
-    <title>Расписание группы</title>
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzAwNzZmNiIgcng9IjIwIi8+PHRleHQgeD0iNTAiIHk9IjgwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiNmZmYiPlI8L3RleHQ+PC9zdmc+">
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogItCg0LDRgdGB0LvRjNCy0LDRjtCJINCy0L7RgdGC0LDQstC70Y/QvdC+0LUg0L/RgNC+0YTQtdGB0YHQuNC+0L3QsNC70YzQvdC+0LkiLAogICJzaG9ydF9uYW1lIjogItCg0LDRgdGB0LvRjNCy0LDRjiIsCiAgInN0YXJ0X3VybCIgOiAiLiIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIZHBaSFJvUFNJeE1EQWxJaUJvWldsbmFIUTlJakV3TUNVaUlHWnBiR3c5SW1Kc1lTd2dZMjl1ZEdWdWRDQTlJbU52YlM5cGJYQnNZV2x1Wnk5cGJYQnNZV2x1WnlJZ1ptbHlkRDBpWVhCd2JHbGpZWFJwYjI0aUlIaHRiRzVjOVhWelpTazdJQzgrUEhCaGRHZ2daRDBpVFRBd01EQWxNakF3TkNBeE1EQXdYekF3TURBd0lERXdNREF3SURFeE1EQWxNREF3TURBaUlITjBlV3hsUFNKbWFXeHNJajQ4YzNSNWJHVStMbU52YlM5cGJYQnNZV2x1Wnk5cGJYQnNZV2x1WnlJZ1ptbHlkRDBpWVhCd2JHbGpZWFJwYjI0aUlIaHRiRzVjOVhWelpTazdJQzgrUEhCaGRHZ2daRDBpVFRBd01EQWxNakF3TkNBeE1EQXdYekF3TURBd0lERXdNREF3SURFeE1EQWxNREF3TURBaUlITjBlV3hsUFNKbWFXeHNJajQ4YzNSNWJHVStMbU52YlM5cGJYQnNZV2x1Wnk5cGJYQnNZV2x1WnlJZ1ptbHlkRDBpWVhCd2JHbGpZWFJwYjI0aUlIaHRiRzVjOVhWelpTazdJQzgrUEhCaGRHZ2daRDBpVFRBd01EQWxNakF3TkNBeE1EQXdYekF3TURBd0lERXdNREF3SURFeE1EQWxNREF3TURBaUlITjBlV3hsUFNKbWFXeHNJajQ4YzNSNWJHVStMbU52YlM5cGJYQnNZV2x1Wnk5cGJYQnNZV2x1WnlJZ1ptbHlkRDBpWVhCd2JHbGpZWFJwYjI0aUlIaHRiRzVjOVhWelpTazdJQzgrUEhCaGRHZ2daRDBpVFRBd01EQWxNakF3TkNBeE1EQXdYekF3TURBd0lERXdNREF3SURFeE1EQWxNREF3TURBaUlITjBlV3hsUFNKbWFXeHNJajQ4YzNSNWJHVStQZz09IiwKICAgICAgInNpemVzIjogIjE0NHgxNDQiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9CiAgXQp9">
     <style>
         :root {
-            --primary: #0076f6;
-            --secondary: #6c757d;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --background: #ffffff;
-            --text: #212529;
-            --card-bg: #ffffff;
-            --card-shadow: rgba(0, 0, 0, 0.1);
-            --border-radius: 16px;
-            --transition: all 0.3s ease;
-            
-            /* Цвета для темы жидкого стекла */
-            --accent: #0A84FF;
-            --green: #30D158;
-            --yellow: #FFD60A;
-            --red: #FF453A;
-            --text-primary: rgba(0,0,0,.9);
-            --text-secondary: rgba(0,0,0,.6);
-        }
-
-        .theme-glass {
-            --background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
-            --card-bg: rgba(255, 255, 255, 0.25);
-            --card-shadow: rgba(0, 0, 0, 0.1);
-            --text: rgba(0, 0, 0, 0.9);
-            --primary: #7b68ee;
-            --secondary: rgba(0, 0, 0, 0.7);
-            --border-radius: 20px;
-            --text-primary: rgba(0, 0, 0, 0.9);
-            --text-secondary: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .theme-dark {
-            --background: #1a1a1a;
-            --card-bg: rgba(0, 0, 0, 0.2);
-            --card-shadow: rgba(0, 0, 0, 0.3);
-            --text: rgba(255,255,255,.92);
-            --text-primary: rgba(255,255,255,.92);
-            --text-secondary: rgba(255,255,255,.6);
-        }
-
-        .theme-nature {
-            --background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --card-shadow: rgba(0, 0, 0, 0.2);
-            --text: #1B5E20;
-            --primary: #388E3C;
+            --primary: #2e7d32;
+            --primary-light: #60ad5e;
+            --primary-dark: #005005;
+            --secondary: #ffb300;
+            --text: #212121;
+            --text-light: #757575;
+            --background: #f5f5f5;
+            --surface: #ffffff;
+            --error: #d32f2f;
+            --success: #388e3c;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: var(--transition);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--background);
+            background-color: var(--background);
             color: var(--text);
-            min-height: 100vh;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Фон с параллакс эффектом */
-        .parallax-bg {
-            position: fixed;
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Экраны приложения */
+        .screen {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0) 70%),
-                        radial-gradient(circle at 70% 60%, rgba(200, 220, 255, 0.3) 0%, rgba(200, 220, 255, 0.1) 30%, rgba(200, 220, 255, 0) 60%);
-            background-attachment: fixed;
-            pointer-events: none;
-        }
-
-        .theme-glass .parallax-bg {
-            background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.6) 0%, rgba(240, 240, 240, 0.3) 40%, rgba(220, 220, 220, 0.1) 70%),
-                        radial-gradient(circle at 70% 60%, rgba(200, 220, 255, 0.5) 0%, rgba(180, 200, 240, 0.3) 30%, rgba(160, 180, 220, 0.1) 60%);
-        }
-
-        .theme-dark .parallax-bg {
-            background: radial-gradient(circle at 30% 40%, rgba(100, 100, 255, 0.2) 0%, rgba(80, 80, 200, 0.1) 40%, rgba(0, 0, 0, 0) 70%),
-                        radial-gradient(circle at 70% 60%, rgba(150, 100, 255, 0.2) 0%, rgba(120, 80, 200, 0.1) 30%, rgba(0, 0, 0, 0) 60%),
-                        #1a1a1a;
-        }
-
-        .app-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
+            transition: transform 0.4s ease;
+            background-color: var(--background);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding: 15px 0;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary), var(--info));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .theme-glass h1 {
-            background: linear-gradient(45deg, #7b68ee, #6a5acd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .week-indicator {
-            background: var(--card-bg);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .theme-glass .week-indicator {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(0, 0, 0, 0.8);
-        }
-
-        .theme-dark .week-indicator {
-            background: rgba(0,0,0,.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset, inset 0 1px 0 rgba(255,255,255,.15);
-        }
-
-        .theme-selector {
-            position: relative;
-        }
-
-        .theme-button {
-            background: var(--card-bg);
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--card-shadow);
-            color: var(--text);
-        }
-
-        .theme-glass .theme-button {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(0, 0, 0, 0.8);
-        }
-
-        .theme-dark .theme-button {
-            background: rgba(0,0,0,.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset, inset 0 1px 0 rgba(255,255,255,.15);
-        }
-
-        .theme-options {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 10px;
-            box-shadow: 0 10px 25px var(--card-shadow);
-            display: none;
             flex-direction: column;
-            gap: 10px;
-            z-index: 100;
-            width: 150px;
         }
 
-        .theme-glass .theme-options {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.25);
+        .screen.hidden {
+            transform: translateX(-100%);
         }
 
-        .theme-dark .theme-options {
-            background: rgba(0,0,0,.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset, inset 0 1px 0 rgba(255,255,255,.15);
+        .screen.active {
+            transform: translateX(0);
         }
 
-        .theme-option {
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .theme-glass .theme-option {
-            color: rgba(0, 0, 0, 0.8);
-        }
-
-        .theme-option:hover {
-            background: rgba(0,0,0,0.05);
-        }
-
-        .theme-glass .theme-option:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .day-navigation {
+        /* Шапка приложения */
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding: 5px 0;
-            scrollbar-width: none;
+            align-items: center;
         }
 
-        .day-navigation::-webkit-scrollbar {
-            display: none;
-        }
-
-        .day-button {
-            padding: 12px 18px;
-            border-radius: var(--border-radius);
-            background: var(--card-bg);
-            border: none;
-            cursor: pointer;
+        .header h1 {
+            font-size: 1.4rem;
             font-weight: 600;
-            color: var(--text);
-            white-space: nowrap;
-            margin: 0 5px;
-            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+
+        .header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Контент экрана */
+        .content {
             flex: 1;
-            min-width: 80px;
-            text-align: center;
+            overflow-y: auto;
+            padding: 16px;
         }
 
-        .theme-glass .day-button {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(0, 0, 0, 0.8);
+        /* Карта */
+        #map {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
         }
 
-        .theme-dark .day-button {
-            background: rgba(0,0,0,.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset, inset 0 1px 0 rgba(255,255,255,.15);
+        /* Форма добавления дерева */
+        .form-group {
+            margin-bottom: 16px;
         }
 
-        .day-button.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 6px 15px rgba(10,132,255,0.4);
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-light);
         }
 
-        .theme-glass .day-button.active {
-            background: #7b68ee;
-            box-shadow: 0 6px 15px rgba(123, 104, 238, 0.4);
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
         }
 
-        .schedule-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 10px 30px var(--card-shadow);
-            margin-bottom: 30px;
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
         }
 
-        .theme-glass .schedule-container {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.25);
-        }
-
-        .theme-dark .schedule-container {
-            background: rgba(0,0,0,.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,.12), 0 1px 0 rgba(255,255,255,.06) inset, inset 0 1px 0 rgba(255,255,255,.15);
-        }
-
-        .day-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .theme-glass .day-title {
-            color: rgba(0, 0, 0, 0.9);
-        }
-
-        .lesson {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.03);
-            border-left: 4px solid var(--primary);
-            position: relative;
-        }
-
-        .theme-glass .lesson {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-left: 4px solid #7b68ee;
-        }
-
-        .theme-dark .lesson {
-            background: rgba(0,0,0,.15);
-            box-shadow: 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.1);
-        }
-
-        .lesson-number {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            background: var(--primary);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .theme-glass .lesson-number {
-            background: #7b68ee;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
         }
 
-        .lesson-time {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
         }
 
-        .theme-glass .lesson-time {
-            color: #7b68ee;
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
         }
 
-        .lesson-name {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        .btn-secondary:hover {
+            background-color: #f57c00;
         }
 
-        .theme-glass .lesson-name {
-            color: rgba(0, 0, 0, 0.9);
+        .btn-block {
+            width: 100%;
         }
 
-        .lesson-type {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .lecture {
-            background-color: rgba(10, 132, 255, 0.15);
-            color: var(--accent);
-        }
-
-        .theme-glass .lecture {
-            background-color: rgba(123, 104, 238, 0.2);
-            color: #7b68ee;
-        }
-
-        .practice {
-            background-color: rgba(48, 209, 88, 0.15);
-            color: var(--green);
-        }
-
-        .theme-glass .practice {
-            background-color: rgba(72, 187, 120, 0.2);
-            color: #48bb78;
-        }
-
-        .seminar {
-            background-color: rgba(255, 193, 7, 0.15);
-            color: var(--warning);
-        }
-
-        .theme-glass .seminar {
-            background-color: rgba(246, 173, 85, 0.2);
-            color: #f6ad55;
-        }
-
-        .lesson-details {
+        /* Список деревьев */
+        .tree-list {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--secondary);
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .theme-glass .lesson-details {
-            color: rgba(0, 0, 0, 0.7);
-        }
-
-        .lesson-detail {
+        .tree-card {
+            background-color: var(--surface);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 5px;
         }
 
-        .empty-schedule {
-            text-align: center;
-            padding: 30px;
-            color: var(--secondary);
-            font-style: italic;
+        .tree-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
         }
 
-        .theme-glass .empty-schedule {
-            color: rgba(0, 0, 0, 0.6);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--secondary);
+        .tree-info p {
+            color: var(--text-light);
             font-size: 0.9rem;
         }
 
-        .theme-glass footer {
-            color: rgba(0, 0, 0, 0.6);
+        .tree-actions {
+            display: flex;
+            gap: 8px;
         }
 
-        @media (max-width: 480px) {
-            .app-container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .day-button {
-                padding: 10px 12px;
-                font-size: 0.9rem;
-                min-width: 70px;
-            }
-            
-            .lesson {
-                padding: 12px;
-            }
-            
-            .lesson-name {
-                font-size: 1rem;
-            }
-
-            .schedule-container {
-                padding: 16px;
-            }
-
-            .theme-glass .schedule-container {
-                padding: 16px;
-            }
+        .tree-actions button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary);
         }
 
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Экран обучения */
+        .tutorial-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 32px 16px;
         }
 
-        .schedule-container {
-            animation: fadeIn 0.5s ease;
+        .tutorial-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 24px;
         }
 
-        .lesson {
-            animation: fadeIn 0.5s ease;
-            animation-fill-mode: both;
+        .tutorial-title {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
-        .lesson:nth-child(1) { animation-delay: 0.1s; }
-        .lesson:nth-child(2) { animation-delay: 0.2s; }
-        .lesson:nth-child(3) { animation-delay: 0.3s; }
-        .lesson:nth-child(4) { animation-delay: 0.4s; }
-        .lesson:nth-child(5) { animation-delay: 0.5s; }
-        
-        /* Оффлайн уведомление */
-        .offline-notification {
+        .tutorial-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .tutorial-indicators {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+
+        .indicator.active {
+            background-color: var(--primary);
+        }
+
+        /* Навигация */
+        .nav-bar {
+            display: flex;
+            background-color: var(--surface);
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+            padding: 8px;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        /* Уведомления */
+        .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--card-bg);
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px var(--card-shadow);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .theme-glass .offline-notification {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(0, 0, 0, 0.8);
-        }
-        
-        /* Кнопка обновления */
-        .refresh-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--primary);
+            background-color: var(--text);
             color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--card-shadow);
-            z-index: 100;
-            border: none;
-        }
-        
-        .theme-glass .refresh-button {
-            background: #7b68ee;
-            box-shadow: 0 4px 12px rgba(123, 104, 238, 0.4);
+            padding: 12px 24px;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        /* Стили для регистрации и входа */
-        .auth-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: 0 10px 30px var(--card-shadow);
-            margin-bottom: 30px;
-            text-align: center;
+        .toast.show {
+            opacity: 1;
         }
 
-        .theme-glass .auth-container {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.25);
-        }
-
-        .auth-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .auth-input {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.8);
-            font-size: 1rem;
-            color: var(--text);
-        }
-
-        .theme-glass .auth-input {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .theme-dark .auth-input {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        .auth-button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-
-        .auth-switch {
-            color: var(--primary);
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* Стили для заметок */
-        .notes-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 10px 30px var(--card-shadow);
-            margin-bottom: 30px;
-        }
-
-        .theme-glass .notes-container {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.25);
-        }
-
-        .notes-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .note {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.03);
-            border-left: 4px solid var(--success);
-            position: relative;
-        }
-
-        .theme-glass .note {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-left: 4px solid #30D158;
-        }
-
-        .note-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .note-content {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .note-date {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            text-align: right;
-        }
-
-        .add-note-button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--success);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .theme-glass .add-note-button {
-            background: #30D158;
-        }
-
-        .note-form {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .note-input, .note-textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.8);
-            font-size: 1rem;
-            color: var(--text);
-        }
-
-        .note-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .note-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .note-submit {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--success);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .note-cancel {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--danger);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Навигация между разделами */
-        .app-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding: 5px 0;
-            scrollbar-width: none;
-        }
-
-        .app-navigation::-webkit-scrollbar {
-            display: none;
-        }
-
-        .nav-button {
-            padding: 12px 18px;
-            border-radius: var(--border-radius);
-            background: var(--card-bg);
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text);
-            white-space: nowrap;
-            margin: 0 5px;
-            box-shadow: 0 4px 8px var(--card-shadow);
-            flex: 1;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .theme-glass .nav-button {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.25);
-            color: rgba(0, 0, 0, 0.8);
-        }
-
-        .nav-button.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 6px 15px rgba(10,132,255,0.4);
-        }
-
-        .theme-glass .nav-button.active {
-            background: #7b68ee;
-            box-shadow: 0 6px 15px rgba(123, 104, 238, 0.4);
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .logout-button {
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            background: var(--danger);
-            color: white;
-            font-size: 0.8rem;
-            cursor: pointer;
+        /* Адаптивность */
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 768px;
+                margin: 0 auto;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="parallax-bg"></div>
     <div class="app-container">
-        <header>
-            <h1>Расписание</h1>
-            <div class="week-indicator" id="weekIndicator">Неделя 1</div>
-            <div class="theme-selector">
-                <button class="theme-button" id="themeButton">🎨</button>
-                <div class="theme-options" id="themeOptions">
-                    <div class="theme-option" data-theme="default">Стандартная</div>
-                    <div class="theme-option" data-theme="glass">Жидкое стекло</div>
-                    <div class="theme-option" data-theme="dark">Тёмная</div>
-                    <div class="theme-option" data-theme="nature">Природа</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Навигация между разделами -->
-        <div class="app-navigation" id="appNavigation" style="display: none;">
-            <button class="nav-button active" data-section="schedule">Расписание</button>
-            <button class="nav-button" data-section="notes">Объявления</button>
-            <button class="nav-button" data-section="admin" id="adminButton" style="display: none;">Админ-панель</button>
-        </div>
-
-        <!-- Раздел расписания -->
-        <div class="section active" id="scheduleSection">
-            <div class="day-navigation">
-                <button class="day-button active" data-day="0">Пн</button>
-                <button class="day-button" data-day="1">Вт</button>
-                <button class="day-button" data-day="2">Ср</button>
-                <button class="day-button" data-day="3">Чт</button>
-                <button class="day-button" data-day="4">Пт</button>
-                <button class="day-button" data-day="5">Сб</button>
-                <button class="day-button" data-day="6">Вс</button>
-            </div>
-
-            <div class="schedule-container">
-                <h2 class="day-title">Понедельник</h2>
-                <div id="scheduleContent">
-                    <!-- Расписание будет загружено здесь -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Раздел объявлений -->
-        <div class="section" id="notesSection">
-            <div class="notes-container">
-                <h2 class="notes-title">Объявления</h2>
-                <div id="notesContent">
-                    <!-- Объявления будут загружены здесь -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Раздел админ-панели -->
-        <div class="section" id="adminSection">
-            <div class="notes-container">
-                <h2 class="notes-title">Админ-панель</h2>
-                <div class="user-info">
-                    <span>Вы вошли как: <strong id="adminName"></strong></span>
-                    <button class="logout-button" id="adminLogoutButton">Выйти</button>
-                </div>
-                <button class="add-note-button" id="addNoteButton">Добавить объявление</button>
-                
-                <div class="note-form" id="noteForm">
-                    <input type="text" class="note-input" id="noteTitle" placeholder="Заголовок объявления">
-                    <textarea class="note-textarea" id="noteContent" placeholder="Текст объявления"></textarea>
-                    <div class="note-actions">
-                        <button class="note-submit" id="noteSubmit">Опубликовать</button>
-                        <button class="note-cancel" id="noteCancel">Отмена</button>
+        <!-- Экран обучения -->
+        <div id="tutorial-screen" class="screen active">
+            <div class="content">
+                <div class="tutorial-slide" id="slide-1">
+                    <div class="tutorial-icon">🌳</div>
+                    <h2 class="tutorial-title">Дендролог Университета</h2>
+                    <p class="tutorial-text">Добро пожаловать в приложение для инвентаризации деревьев на территории университета!</p>
+                    <div class="tutorial-indicators">
+                        <div class="indicator active"></div>
+                        <div class="indicator"></div>
+                        <div class="indicator"></div>
                     </div>
+                    <button class="btn btn-primary" onclick="nextSlide()">Далее</button>
                 </div>
                 
-                <h3 style="margin-top: 20px;">Мои объявления</h3>
-                <div id="adminNotesContent">
-                    <!-- Объявления администратора будут загружены здесь -->
+                <div class="tutorial-slide hidden" id="slide-2">
+                    <div class="tutorial-icon">📍</div>
+                    <h2 class="tutorial-title">Отметка деревьев</h2>
+                    <p class="tutorial-text">Перейдите на карту, найдите своё местоположение и отметьте дерево, нажав на карту.</p>
+                    <div class="tutorial-indicators">
+                        <div class="indicator"></div>
+                        <div class="indicator active"></div>
+                        <div class="indicator"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="nextSlide()">Далее</button>
+                </div>
+                
+                <div class="tutorial-slide hidden" id="slide-3">
+                    <div class="tutorial-icon">📝</div>
+                    <h2 class="tutorial-title">Заполнение данных</h2>
+                    <p class="tutorial-text">Заполните информацию о дереве: вид, толщину ствола, состояние и дополнительные заметки.</p>
+                    <div class="tutorial-indicators">
+                        <div class="indicator"></div>
+                        <div class="indicator"></div>
+                        <div class="indicator active"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="finishTutorial()">Начать использовать</button>
                 </div>
             </div>
         </div>
 
-        <!-- Форма регистрации/входа -->
-        <div class="auth-container" id="authContainer">
-            <h2 class="auth-title" id="authTitle">Регистрация</h2>
-            <input type="text" class="auth-input" id="authName" placeholder="Ваше имя">
-            <input type="password" class="auth-input" id="authPassword" placeholder="Пароль" style="display: none;">
-            <button class="auth-button" id="authButton">Зарегистрироваться</button>
-            <p>Уже есть аккаунт? <span class="auth-switch" id="authSwitch">Войти</span></p>
+        <!-- Главный экран с картой -->
+        <div id="map-screen" class="screen hidden">
+            <div class="header">
+                <h1>Карта деревьев</h1>
+                <button id="add-tree-btn" title="Добавить дерево">➕</button>
+            </div>
+            <div class="content">
+                <div id="map"></div>
+            </div>
         </div>
 
-        <footer>
-            Обновляется автоматически • <span id="lastUpdated"></span>
-        </footer>
-    </div>
-    
-    <div class="offline-notification" id="offlineNotification">
-        <span>⚠️</span> Работает в оффлайн-режиме
-    </div>
-    
-    <button class="refresh-button" id="refreshButton" title="Обновить расписание">↻</button>
+        <!-- Экран добавления дерева -->
+        <div id="add-tree-screen" class="screen hidden">
+            <div class="header">
+                <button id="back-to-map-btn">← Назад</button>
+                <h1>Добавить дерево</h1>
+                <div style="width: 24px;"></div> <!-- Для выравнивания -->
+            </div>
+            <div class="content">
+                <div class="form-group">
+                    <label for="tree-species">Вид дерева</label>
+                    <select id="tree-species" class="form-control">
+                        <option value="">Выберите вид</option>
+                        <option value="Дуб">Дуб</option>
+                        <option value="Береза">Береза</option>
+                        <option value="Сосна">Сосна</option>
+                        <option value="Ель">Ель</option>
+                        <option value="Клен">Клен</option>
+                        <option value="Липа">Липа</option>
+                        <option value="Тополь">Тополь</option>
+                        <option value="Ясень">Ясень</option>
+                        <option value="Ива">Ива</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tree-diameter">Диаметр ствола (см)</label>
+                    <input type="number" id="tree-diameter" class="form-control" placeholder="Например, 45">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tree-height">Высота дерева (м)</label>
+                    <input type="number" id="tree-height" class="form-control" placeholder="Например, 12">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tree-condition">Состояние дерева</label>
+                    <select id="tree-condition" class="form-control">
+                        <option value="Отличное">Отличное</option>
+                        <option value="Хорошее">Хорошее</option>
+                        <option value="Удовлетворительное">Удовлетворительное</option>
+                        <option value="Плохое">Плохое</option>
+                        <option value="Аварийное">Аварийное</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tree-notes">Дополнительные заметки</label>
+                    <textarea id="tree-notes" class="form-control" rows="3" placeholder="Любая дополнительная информация о дереве..."></textarea>
+                </div>
+                
+                <button id="save-tree-btn" class="btn btn-primary btn-block">Сохранить дерево</button>
+            </div>
+        </div>
 
+        <!-- Экран списка деревьев -->
+        <div id="list-screen" class="screen hidden">
+            <div class="header">
+                <h1>Мои деревья</h1>
+            </div>
+            <div class="content">
+                <div id="trees-list" class="tree-list">
+                    <!-- Список деревьев будет заполняться динамически -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <div class="nav-bar">
+            <button class="nav-item active" data-screen="map-screen">
+                <span class="nav-icon">🗺️</span>
+                <span>Карта</span>
+            </button>
+            <button class="nav-item" data-screen="list-screen">
+                <span class="nav-icon">📋</span>
+                <span>Список</span>
+            </button>
+        </div>
+
+        <!-- Уведомление -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Определение текущей недели (чётная/нечётная)
-        function getCurrentWeek() {
-            // Фиксированная дата начала семестра для примера (можно изменить)
-            const startDate = new Date('2024-02-05');
-            const today = new Date();
-            const diffTime = Math.abs(today - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            const weekNumber = Math.floor(diffDays / 7) % 2;
-            
-            // 0 - первая неделя, 1 - вторая неделя
-            return weekNumber;
-        }
+        // Переменные приложения
+        let map;
+        let userMarker;
+        let trees = JSON.parse(localStorage.getItem('universityTrees')) || [];
+        let currentMarker = null;
+        let selectedPosition = null;
 
-        // Определение номера пары по времени
-        function getPairNumber(time) {
-            const timeSlots = [
-                "8:30-10:05",  // 1 пара
-                "10:15-11:50", // 2 пара
-                "12:20-13:55", // 3 пара
-                "14:05-15:40", // 4 пара
-                "15:50-17:25", // 5 пара
-                "17:35-19:10"  // 6 пара
-            ];
-            
-            return timeSlots.indexOf(time) + 1;
-        }
-
-        // Данные расписания (исправленные по вашему описанию)
-        const scheduleData = {
-            0: { // Понедельник
-                name: "Понедельник",
-                lessons: [
-                    {
-                        time: "8:30-10:05",
-                        name: "Релейная защита и противоаварийная автоматика",
-                        room: "1-8",
-                        teacher: "Ниналалов С.А.",
-                        week: null, // для обеих недель
-                        type: "лекция"
-                    },
-                    {
-                        time: "10:15-11:50",
-                        name: "Геотермальная энергетика",
-                        room: "1-8",
-                        teacher: "Алхасова Д.А.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    },
-                    {
-                        time: "12:20-13:55",
-                        name: "Теоретические основы использования ВЭ",
-                        room: "1-2лк",
-                        teacher: "Алхасова Д.А.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    }
-                ]
-            },
-            1: { // Вторник
-                name: "Вторник",
-                lessons: [
-                    {
-                        time: "8:30-10:05",
-                        name: "Физкультура",
-                        room: "Спортзал",
-                        teacher: "",
-                        week: 1, // только вторая неделя
-                        type: "практика"
-                    },
-                    {
-                        time: "10:15-11:50",
-                        name: "Энергетические сооружения установок нетрадиционной и ВЭ",
-                        room: "1-2лк",
-                        teacher: "Баба Д.",
-                        week: null, // для обеих недель
-                        type: "лекция"
-                    },
-                    {
-                        time: "12:20-13:55",
-                        name: "Теоретические основы использования ВЭ",
-                        room: "1-2лк",
-                        teacher: "Алхасова Д.А.",
-                        week: 0, // только первая неделя
-                        type: "лекция"
-                    }
-                ]
-            },
-            2: { // Среда
-                name: "Среда",
-                lessons: [
-                    {
-                        time: "8:30-10:05",
-                        name: "Энергетические сооружения установок нетрадиционной и ВЭ",
-                        room: "2-41",
-                        teacher: "Баба Д.",
-                        week: 1, // только вторая неделя
-                        type: "практика"
-                    },
-                    {
-                        time: "10:15-11:50",
-                        name: "Релейная защита и противоаварийная автоматика",
-                        room: "1-2лк",
-                        teacher: "Ниналалов С.А.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    },
-                    {
-                        time: "12:20-13:55",
-                        name: "Энергетические сооружения установок нетрадиционной и ВЭ",
-                        room: "1-8",
-                        teacher: "Баба Д.",
-                        week: null, // для обеих недель
-                        type: "семинар"
-                    }
-                ]
-            },
-            3: { // Четверг
-                name: "Четверг",
-                lessons: [
-                    {
-                        time: "10:15-11:50",
-                        name: "Техника высоких напряжений",
-                        room: "2-30",
-                        teacher: "Шахсинов Г.Ш.",
-                        week: null, // для обеих недель
-                        type: "лекция"
-                    },
-                    {
-                        time: "12:20-13:55",
-                        name: "Метрология",
-                        room: "2-30",
-                        teacher: "Офицерова Н.В.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    },
-                    {
-                        time: "14:05-15:40",
-                        name: "Метрология",
-                        room: "2-30",
-                        teacher: "Офицерова Н.В.",
-                        week: 0, // только первая неделя
-                        type: "практика"
-                    }
-                ]
-            },
-            4: { // Пятница
-                name: "Пятница",
-                lessons: [
-                    {
-                        time: "10:15-11:50",
-                        name: "Эксплуатация электротех. оборудования ГЭС, ГАЭС",
-                        room: "2-30",
-                        teacher: "Шахсинов Г.Ш.",
-                        week: null, // для обеих недель
-                        type: "лекция"
-                    },
-                    {
-                        time: "12:20-13:55",
-                        name: "Энергетическое оборудование возобновляемой энергетики",
-                        room: "2-30",
-                        teacher: "Баламирзоев А.Г.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    },
-                    {
-                        time: "14:05-15:40",
-                        name: "Английский язык",
-                        room: "1-19",
-                        teacher: "Алибекова Д.М.",
-                        week: null, // для обеих недель
-                        type: "практика"
-                    }
-                ]
-            },
-            5: { // Суббота
-                name: "Суббота",
-                lessons: []
-            },
-            6: { // Воскресенье
-                name: "Воскресенье",
-                lessons: []
-            }
-        };
-
-        // Текущая неделя (0 - первая, 1 - вторая)
-        let currentWeek = getCurrentWeek();
-        // Текущий выбранный день (0-6)
-        let currentDay = new Date().getDay() - 1;
-        if (currentDay < 0) currentDay = 0; // Если воскресенье, показываем понедельник
-
-        // Система пользователей и заметок
-        let currentUser = null;
-        let isLoginMode = false;
-        const adminUser = { name: "admin", password: "admin123" };
-        let notes = [];
-
-        // Инициализация приложения
+        // Инициализация приложения после загрузки DOM
         document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем, есть ли сохраненный пользователь
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showAppInterface();
+            // Проверяем, прошел ли пользователь обучение
+            const tutorialCompleted = localStorage.getItem('tutorialCompleted');
+            if (tutorialCompleted) {
+                showScreen('map-screen');
+                initMap();
             } else {
-                showAuthInterface();
+                showScreen('tutorial-screen');
             }
 
-            // Загружаем заметки
-            loadNotes();
-
-            // Установка индикатора недели
-            document.getElementById('weekIndicator').textContent = `Неделя ${currentWeek + 1}`;
-            
-            // Установка времени последнего обновления
-            updateLastUpdatedTime();
-            
-            // Активация текущего дня в навигации
-            const dayButtons = document.querySelectorAll('.day-button');
-            dayButtons.forEach((button, index) => {
-                if (index === currentDay) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-                
-                button.addEventListener('click', () => {
-                    dayButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    currentDay = parseInt(button.getAttribute('data-day'));
-                    renderSchedule();
-                });
-            });
-            
-            // Настройка переключения тем
-            const themeButton = document.getElementById('themeButton');
-            const themeOptions = document.getElementById('themeOptions');
-            
-            themeButton.addEventListener('click', () => {
-                themeOptions.style.display = themeOptions.style.display === 'flex' ? 'none' : 'flex';
-            });
-            
-            document.querySelectorAll('.theme-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    const theme = option.getAttribute('data-theme');
-                    changeTheme(theme);
-                    themeOptions.style.display = 'none';
-                });
-            });
-            
-            // Кнопка обновления
-            document.getElementById('refreshButton').addEventListener('click', () => {
-                // Анимация вращения
-                const refreshIcon = document.getElementById('refreshButton');
-                refreshIcon.style.transition = 'transform 0.5s ease';
-                refreshIcon.style.transform = 'rotate(360deg)';
-                
-                setTimeout(() => {
-                    refreshIcon.style.transform = 'rotate(0deg)';
-                    // Обновляем время последнего обновления
-                    updateLastUpdatedTime();
-                }, 500);
-            });
-            
-            // Закрытие меню тем при клике вне его
-            document.addEventListener('click', (e) => {
-                if (!themeButton.contains(e.target) && !themeOptions.contains(e.target)) {
-                    themeOptions.style.display = 'none';
-                }
-            });
-            
-            // Навигация между разделами
-            document.querySelectorAll('.nav-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-                    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-                    
-                    button.classList.add('active');
-                    const sectionId = button.getAttribute('data-section') + 'Section';
-                    document.getElementById(sectionId).classList.add('active');
-                });
-            });
-            
-            // Аутентификация
-            document.getElementById('authSwitch').addEventListener('click', toggleAuthMode);
-            document.getElementById('authButton').addEventListener('click', handleAuth);
-            
-            // Админ-панель
-            document.getElementById('addNoteButton').addEventListener('click', showNoteForm);
-            document.getElementById('noteCancel').addEventListener('click', hideNoteForm);
-            document.getElementById('noteSubmit').addEventListener('click', addNote);
-            document.getElementById('adminLogoutButton').addEventListener('click', logout);
-            
-            // Первоначальная отрисовка расписания
-            renderSchedule();
-            
-            // Проверка состояния сети
-            window.addEventListener('online', updateOnlineStatus);
-            window.addEventListener('offline', updateOnlineStatus);
-            updateOnlineStatus();
-            
-            // Сохранение данных в localStorage для оффлайн-работы
-            saveToLocalStorage();
-            
-            // Регистрация Service Worker для PWA
-            registerServiceWorker();
+            // Настройка обработчиков событий
+            setupEventListeners();
         });
 
-        // Функция отрисовки расписания для выбранного дня
-        function renderSchedule() {
-            const scheduleContent = document.getElementById('scheduleContent');
-            const dayTitle = document.querySelector('.day-title');
-            
-            const dayData = scheduleData[currentDay];
-            dayTitle.textContent = dayData.name;
-            
-            // Фильтрация занятий по текущей неделе
-            const filteredLessons = dayData.lessons.filter(lesson => 
-                lesson.week === null || lesson.week === currentWeek
-            );
-            
-            if (filteredLessons.length === 0) {
-                scheduleContent.innerHTML = '<div class="empty-schedule">Занятий нет</div>';
-                return;
-            }
-            
-            let html = '';
-            filteredLessons.forEach((lesson) => {
-                const pairNumber = getPairNumber(lesson.time);
-                const typeClass = lesson.type === "лекция" ? "lecture" : 
-                                lesson.type === "практика" ? "practice" : "seminar";
-                
-                html += `
-                    <div class="lesson">
-                        <div class="lesson-number">${pairNumber}</div>
-                        <div class="lesson-time">${lesson.time}</div>
-                        <div class="lesson-type ${typeClass}">${lesson.type}</div>
-                        <div class="lesson-name">${lesson.name}</div>
-                        <div class="lesson-details">
-                            <div class="lesson-detail">📍 ${lesson.room}</div>
-                            <div class="lesson-detail">👨‍🏫 ${lesson.teacher}</div>
-                        </div>
-                    </div>
-                `;
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Навигация
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const screenId = this.getAttribute('data-screen');
+                    showScreen(screenId);
+                    
+                    // Обновление активного элемента навигации
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
             });
-            
-            scheduleContent.innerHTML = html;
+
+            // Кнопка добавления дерева
+            document.getElementById('add-tree-btn').addEventListener('click', function() {
+                if (selectedPosition) {
+                    showScreen('add-tree-screen');
+                } else {
+                    showToast('Сначала выберите местоположение на карте');
+                }
+            });
+
+            // Кнопка возврата к карте
+            document.getElementById('back-to-map-btn').addEventListener('click', function() {
+                showScreen('map-screen');
+            });
+
+            // Кнопка сохранения дерева
+            document.getElementById('save-tree-btn').addEventListener('click', saveTree);
         }
 
-        // Функция смены темы
-        function changeTheme(themeName) {
-            document.body.classList.remove('theme-glass', 'theme-dark', 'theme-nature');
-            
-            if (themeName !== 'default') {
-                document.body.classList.add(`theme-${themeName}`);
-            }
-            
-            // Сохранение выбранной темы в localStorage
-            localStorage.setItem('selectedTheme', themeName);
-        }
+        // Инициализация карты
+        function initMap() {
+            // Создание карты с центром на Москве (можно изменить на нужный университет)
+            map = L.map('map').setView([55.7558, 37.6173], 16);
 
-        // Загрузка сохранённой темы
-        const savedTheme = localStorage.getItem('selectedTheme');
-        if (savedTheme) {
-            changeTheme(savedTheme);
-        }
-        
-        // Функция обновления статуса онлайн/оффлайн
-        function updateOnlineStatus() {
-            const notification = document.getElementById('offlineNotification');
-            if (!navigator.onLine) {
-                notification.style.display = 'flex';
-                // Загружаем данные из localStorage при оффлайн-режиме
-                loadFromLocalStorage();
-            } else {
-                notification.style.display = 'none';
-            }
-        }
-        
-        // Сохранение данных в localStorage
-        function saveToLocalStorage() {
-            const appData = {
-                scheduleData: scheduleData,
-                currentWeek: currentWeek,
-                currentDay: currentDay,
-                lastUpdated: new Date().toISOString(),
-                notes: notes
-            };
-            
-            localStorage.setItem('scheduleAppData', JSON.stringify(appData));
-        }
-        
-        // Загрузка данных из localStorage
-        function loadFromLocalStorage() {
-            const savedData = localStorage.getItem('scheduleAppData');
-            if (savedData) {
-                try {
-                    const appData = JSON.parse(savedData);
-                    
-                    // Восстанавливаем текущий день и неделю
-                    currentWeek = appData.currentWeek || currentWeek;
-                    currentDay = appData.currentDay || currentDay;
-                    
-                    // Восстанавливаем заметки
-                    if (appData.notes) {
-                        notes = appData.notes;
-                        renderNotes();
-                    }
-                    
-                    // Обновляем индикатор недели
-                    document.getElementById('weekIndicator').textContent = `Неделя ${currentWeek + 1}`;
-                    
-                    // Обновляем время последнего обновления
-                    if (appData.lastUpdated) {
-                        const lastUpdated = new Date(appData.lastUpdated);
-                        document.getElementById('lastUpdated').textContent = `Обновлено: ${lastUpdated.toLocaleDateString()} ${lastUpdated.toLocaleTimeString()}`;
-                    }
-                    
-                    // Перерисовываем расписание
-                    renderSchedule();
-                } catch (e) {
-                    console.error('Ошибка загрузки из localStorage:', e);
-                }
-            }
-        }
-        
-        // Обновление времени последнего обновления
-        function updateLastUpdatedTime() {
-            const now = new Date();
-            document.getElementById('lastUpdated').textContent = `Обновлено: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-            
-            // Сохраняем время обновления
-            const savedData = localStorage.getItem('scheduleAppData');
-            if (savedData) {
-                try {
-                    const appData = JSON.parse(savedData);
-                    appData.lastUpdated = now.toISOString();
-                    localStorage.setItem('scheduleAppData', JSON.stringify(appData));
-                } catch (e) {
-                    console.error('Ошибка сохранения времени обновления:', e);
-                }
-            }
-        }
-        
-        // Регистрация Service Worker
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js')
-                    .then(function(registration) {
-                        console.log('Service Worker зарегистрирован:', registration);
+            // Добавление слоя карты
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Получение местоположения пользователя
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const userLat = position.coords.latitude;
+                        const userLng = position.coords.longitude;
                         
-                        // Периодически проверяем обновления
-                        setInterval(() => {
-                            registration.update();
-                        }, 60 * 60 * 1000); // Каждый час
-                    })
-                    .catch(function(error) {
-                        console.log('Ошибка регистрации Service Worker:', error);
-                    });
-                    
-                // Прослушиваем сообщения от Service Worker
-                navigator.serviceWorker.addEventListener('message', event => {
-                    if (event.data && event.data.type === 'CACHE_UPDATED') {
-                        console.log('Кэш обновлен');
+                        // Центрирование карты на пользователе
+                        map.setView([userLat, userLng], 16);
+                        
+                        // Добавление маркера пользователя
+                        userMarker = L.marker([userLat, userLng])
+                            .addTo(map)
+                            .bindPopup('Ваше местоположение')
+                            .openPopup();
+                    },
+                    function(error) {
+                        console.error('Ошибка получения геолокации:', error);
+                        showToast('Не удалось определить ваше местоположение');
                     }
-                });
+                );
             }
+
+            // Обработчик клика по карте для добавления дерева
+            map.on('click', function(e) {
+                // Удаление предыдущего маркера, если есть
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                }
+                
+                // Добавление нового маркера
+                currentMarker = L.marker(e.latlng)
+                    .addTo(map)
+                    .bindPopup('Новое дерево')
+                    .openPopup();
+                
+                // Сохранение выбранной позиции
+                selectedPosition = e.latlng;
+            });
+
+            // Загрузка ранее сохраненных деревьев на карту
+            loadTreesOnMap();
         }
 
-        // Функции для системы пользователей и заметок
-        function showAuthInterface() {
-            document.getElementById('authContainer').style.display = 'block';
-            document.getElementById('appNavigation').style.display = 'none';
-            document.getElementById('scheduleSection').style.display = 'none';
-            document.getElementById('notesSection').style.display = 'none';
-            document.getElementById('adminSection').style.display = 'none';
+        // Загрузка деревьев на карту
+        function loadTreesOnMap() {
+            trees.forEach(tree => {
+                const treeMarker = L.marker([tree.lat, tree.lng])
+                    .addTo(map)
+                    .bindPopup(`
+                        <div>
+                            <h3>${tree.species}</h3>
+                            <p>Диаметр: ${tree.diameter} см</p>
+                            <p>Высота: ${tree.height} м</p>
+                            <p>Состояние: ${tree.condition}</p>
+                            ${tree.notes ? `<p>Заметки: ${tree.notes}</p>` : ''}
+                        </div>
+                    `);
+            });
         }
 
-        function showAppInterface() {
-            document.getElementById('authContainer').style.display = 'none';
-            document.getElementById('appNavigation').style.display = 'flex';
-            document.getElementById('scheduleSection').style.display = 'block';
-            
-            // Показываем кнопку админ-панели только для администратора
-            if (currentUser && currentUser.name === adminUser.name) {
-                document.getElementById('adminButton').style.display = 'block';
-                document.getElementById('adminName').textContent = currentUser.name;
-            } else {
-                document.getElementById('adminButton').style.display = 'none';
-            }
-            
-            renderNotes();
-        }
+        // Сохранение дерева
+        function saveTree() {
+            const species = document.getElementById('tree-species').value;
+            const diameter = document.getElementById('tree-diameter').value;
+            const height = document.getElementById('tree-height').value;
+            const condition = document.getElementById('tree-condition').value;
+            const notes = document.getElementById('tree-notes').value;
 
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            const authTitle = document.getElementById('authTitle');
-            const authButton = document.getElementById('authButton');
-            const authSwitch = document.getElementById('authSwitch');
-            const authPassword = document.getElementById('authPassword');
-            
-            if (isLoginMode) {
-                authTitle.textContent = 'Вход';
-                authButton.textContent = 'Войти';
-                authSwitch.textContent = 'Зарегистрироваться';
-                authPassword.style.display = 'block';
-            } else {
-                authTitle.textContent = 'Регистрация';
-                authButton.textContent = 'Зарегистрироваться';
-                authSwitch.textContent = 'Войти';
-                authPassword.style.display = 'none';
-            }
-        }
-
-        function handleAuth() {
-            const name = document.getElementById('authName').value.trim();
-            const password = document.getElementById('authPassword').value;
-            
-            if (!name) {
-                alert('Введите имя');
+            // Проверка заполнения обязательных полей
+            if (!species || !diameter || !height) {
+                showToast('Заполните все обязательные поля');
                 return;
             }
-            
-            if (isLoginMode) {
-                // Проверка логина
-                if (name === adminUser.name && password === adminUser.password) {
-                    currentUser = { name: name, isAdmin: true };
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    showAppInterface();
-                } else {
-                    alert('Неверное имя пользователя или пароль');
-                }
-            } else {
-                // Регистрация
-                currentUser = { name: name, isAdmin: false };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                showAppInterface();
-            }
+
+            // Создание объекта дерева
+            const tree = {
+                id: Date.now(), // Используем временную метку как ID
+                species,
+                diameter,
+                height,
+                condition,
+                notes,
+                lat: selectedPosition.lat,
+                lng: selectedPosition.lng,
+                date: new Date().toLocaleDateString('ru-RU')
+            };
+
+            // Добавление дерева в массив и сохранение в localStorage
+            trees.push(tree);
+            localStorage.setItem('universityTrees', JSON.stringify(trees));
+
+            // Добавление маркера на карту
+            const treeMarker = L.marker([tree.lat, tree.lng])
+                .addTo(map)
+                .bindPopup(`
+                    <div>
+                        <h3>${tree.species}</h3>
+                        <p>Диаметр: ${tree.diameter} см</p>
+                        <p>Высота: ${tree.height} м</p>
+                        <p>Состояние: ${tree.condition}</p>
+                        ${tree.notes ? `<p>Заметки: ${tree.notes}</p>` : ''}
+                    </div>
+                `);
+
+            // Очистка формы и возврат к карте
+            document.getElementById('tree-species').value = '';
+            document.getElementById('tree-diameter').value = '';
+            document.getElementById('tree-height').value = '';
+            document.getElementById('tree-condition').value = 'Отличное';
+            document.getElementById('tree-notes').value = '';
+
+            showScreen('map-screen');
+            showToast('Дерево успешно добавлено!');
         }
 
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            showAuthInterface();
-        }
+        // Загрузка списка деревьев
+        function loadTreesList() {
+            const treesList = document.getElementById('trees-list');
+            treesList.innerHTML = '';
 
-        function loadNotes() {
-            const savedNotes = localStorage.getItem('notes');
-            if (savedNotes) {
-                notes = JSON.parse(savedNotes);
-            }
-        }
-
-        function saveNotes() {
-            localStorage.setItem('notes', JSON.stringify(notes));
-            saveToLocalStorage();
-        }
-
-        function renderNotes() {
-            const notesContent = document.getElementById('notesContent');
-            const adminNotesContent = document.getElementById('adminNotesContent');
-            
-            if (notes.length === 0) {
-                notesContent.innerHTML = '<div class="empty-schedule">Объявлений пока нет</div>';
-                if (adminNotesContent) {
-                    adminNotesContent.innerHTML = '<div class="empty-schedule">Вы еще не создали объявлений</div>';
-                }
+            if (trees.length === 0) {
+                treesList.innerHTML = '<p style="text-align: center; color: var(--text-light); margin-top: 32px;">Вы еще не добавили ни одного дерева</p>';
                 return;
             }
-            
-            // Рендеринг объявлений для всех пользователей
-            let html = '';
-            notes.forEach((note, index) => {
-                html += `
-                    <div class="note">
-                        <div class="note-title">${note.title}</div>
-                        <div class="note-content">${note.content}</div>
-                        <div class="note-date">${new Date(note.date).toLocaleDateString()} - ${note.author}</div>
+
+            trees.forEach(tree => {
+                const treeCard = document.createElement('div');
+                treeCard.className = 'tree-card';
+                treeCard.innerHTML = `
+                    <div class="tree-info">
+                        <h3>${tree.species}</h3>
+                        <p>Диаметр: ${tree.diameter} см • Высота: ${tree.height} м</p>
+                        <p>Состояние: ${tree.condition} • ${tree.date}</p>
+                    </div>
+                    <div class="tree-actions">
+                        <button title="Удалить" onclick="deleteTree(${tree.id})">🗑️</button>
                     </div>
                 `;
+                treesList.appendChild(treeCard);
             });
-            notesContent.innerHTML = html;
-            
-            // Рендеринг объявлений для администратора (только его объявления)
-            if (currentUser && currentUser.name === adminUser.name) {
-                let adminHtml = '';
-                const adminNotes = notes.filter(note => note.author === adminUser.name);
+        }
+
+        // Удаление дерева
+        function deleteTree(treeId) {
+            if (confirm('Вы уверены, что хотите удалить это дерево?')) {
+                trees = trees.filter(tree => tree.id !== treeId);
+                localStorage.setItem('universityTrees', JSON.stringify(trees));
+                loadTreesList();
                 
-                if (adminNotes.length === 0) {
-                    adminNotesContent.innerHTML = '<div class="empty-schedule">Вы еще не создали объявлений</div>';
-                } else {
-                    adminNotes.forEach((note, index) => {
-                        adminHtml += `
-                            <div class="note">
-                                <div class="note-title">${note.title}</div>
-                                <div class="note-content">${note.content}</div>
-                                <div class="note-date">${new Date(note.date).toLocaleDateString()}</div>
-                                <button class="logout-button" onclick="deleteNote(${index})" style="margin-top: 10px;">Удалить</button>
-                            </div>
-                        `;
+                // Перезагрузка карты
+                if (map) {
+                    // Упрощенная перезагрузка маркеров
+                    map.eachLayer(layer => {
+                        if (layer instanceof L.Marker && layer !== userMarker) {
+                            map.removeLayer(layer);
+                        }
                     });
-                    adminNotesContent.innerHTML = adminHtml;
+                    loadTreesOnMap();
                 }
+                
+                showToast('Дерево удалено');
             }
         }
 
-        function showNoteForm() {
-            document.getElementById('noteForm').style.display = 'block';
-            document.getElementById('addNoteButton').style.display = 'none';
-        }
-
-        function hideNoteForm() {
-            document.getElementById('noteForm').style.display = 'none';
-            document.getElementById('addNoteButton').style.display = 'block';
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteContent').value = '';
-        }
-
-        function addNote() {
-            const title = document.getElementById('noteTitle').value.trim();
-            const content = document.getElementById('noteContent').value.trim();
+        // Функции для обучения
+        function nextSlide() {
+            const slides = document.querySelectorAll('.tutorial-slide');
+            let currentSlideIndex = -1;
             
-            if (!title || !content) {
-                alert('Заполните все поля');
-                return;
-            }
+            slides.forEach((slide, index) => {
+                if (!slide.classList.contains('hidden')) {
+                    currentSlideIndex = index;
+                }
+            });
             
-            const newNote = {
-                title: title,
-                content: content,
-                author: currentUser.name,
-                date: new Date().toISOString()
-            };
-            
-            notes.unshift(newNote); // Добавляем в начало массива
-            saveNotes();
-            renderNotes();
-            hideNoteForm();
-            
-            // Переключаемся на вкладку с объявлениями
-            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-            document.querySelector('[data-section="notes"]').classList.add('active');
-            document.getElementById('notesSection').classList.add('active');
-        }
-
-        function deleteNote(index) {
-            if (confirm('Вы уверены, что хотите удалить это объявление?')) {
-                notes.splice(index, 1);
-                saveNotes();
-                renderNotes();
+            if (currentSlideIndex >= 0 && currentSlideIndex < slides.length - 1) {
+                slides[currentSlideIndex].classList.add('hidden');
+                slides[currentSlideIndex + 1].classList.remove('hidden');
+                
+                // Обновление индикаторов
+                document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlideIndex + 1);
+                });
             }
         }
-    </script>
-    
-    <script>
-        // Inline Service Worker для оффлайн-работы
-        if ('serviceWorker' in navigator) {
-            // Создаем Service Worker прямо в коде
-            const swCode = `
-                const CACHE_NAME = 'schedule-app-v2';
-                const urlsToCache = [
-                    '/',
-                    './index.html',
-                    './manifest.json'
-                ];
 
-                self.addEventListener('install', function(event) {
-                    event.waitUntil(
-                        caches.open(CACHE_NAME)
-                            .then(function(cache) {
-                                console.log('Opened cache');
-                                return cache.addAll(urlsToCache);
-                            })
-                    );
-                });
+        function finishTutorial() {
+            localStorage.setItem('tutorialCompleted', 'true');
+            showScreen('map-screen');
+            initMap();
+        }
 
-                self.addEventListener('fetch', function(event) {
-                    event.respondWith(
-                        caches.match(event.request)
-                            .then(function(response) {
-                                if (response) {
-                                    return response;
-                                }
-                                
-                                return fetch(event.request).then(function(response) {
-                                    if(!response || response.status !== 200 || response.type !== 'basic') {
-                                        return response;
-                                    }
-                                    
-                                    var responseToCache = response.clone();
-                                    
-                                    caches.open(CACHE_NAME)
-                                        .then(function(cache) {
-                                            cache.put(event.request, responseToCache);
-                                        });
-                                    
-                                    return response;
-                                });
-                            })
-                    );
-                });
-
-                self.addEventListener('activate', function(event) {
-                    event.waitUntil(
-                        caches.keys().then(function(cacheNames) {
-                            return Promise.all(
-                                cacheNames.map(function(cacheName) {
-                                    if (cacheName !== CACHE_NAME) {
-                                        return caches.delete(cacheName);
-                                    }
-                                })
-                            );
-                        })
-                    );
-                });
-            `;
+        // Показать экран
+        function showScreen(screenId) {
+            // Скрыть все экраны
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+                screen.classList.remove('active');
+            });
             
-            // Создаем Blob из кода Service Worker
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            const swURL = URL.createObjectURL(blob);
+            // Показать выбранный экран
+            const targetScreen = document.getElementById(screenId);
+            targetScreen.classList.remove('hidden');
+            targetScreen.classList.add('active');
             
-            // Регистрируем Service Worker
-            navigator.serviceWorker.register(swURL)
-                .then(function(registration) {
-                    console.log('Service Worker зарегистрирован:', registration);
-                })
-                .catch(function(error) {
-                    console.log('Ошибка регистрации Service Worker:', error);
-                });
+            // Если показываем список деревьев, загружаем его
+            if (screenId === 'list-screen') {
+                loadTreesList();
+            }
+        }
+
+        // Показать уведомление
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
     </script>
 </body>
